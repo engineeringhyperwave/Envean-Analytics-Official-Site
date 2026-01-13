@@ -4,248 +4,189 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Envean Analytics | Official Site 2026</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
         /* ==========================================
-           1. 基础重置 (全宽无缝)
+           1. 全局样式与一图到底背景
            ========================================== */
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        html, body { 
-            width: 100%; 
-            overflow-x: hidden; 
-            font-family: 'Inter', sans-serif;
-            background-color: #020810;
-            color: #ffffff;
-            line-height: 1.6;
-        }
-
         :root {
-            /* 品牌混合渐变 (左蓝右绿) */
             --mix-gradient: linear-gradient(to right, #0076ff 0%, #39d38e 100%);
             --accent-green: #39d38e;
             --accent-blue: #0076ff;
-            --text-gray: #b0c0d0;
             --container-width: 1400px;
         }
 
-        .container {
-            max-width: var(--container-width);
-            margin: 0 auto;
-            padding: 0 40px;
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html, body { width: 100%; font-family: 'Inter', sans-serif; color: #333; line-height: 1.6; }
+
+        body {
+            /* 整个网站共用一张背景图 */
+            background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('background.png');
+            background-attachment: fixed; /* 背景固定，滚动时产生高级感 */
+            background-position: center;
+            background-size: cover;
+            background-repeat: no-repeat;
         }
+
+        .container { max-width: var(--container-width); margin: 0 auto; padding: 0 40px; }
 
         /* ==========================================
-           2. Header (大 Logo + 无空位)
+           2. Header & Logo (视觉稳定性核心)
            ========================================== */
-        header {
-            width: 100%;
-            background: #000000;
-            position: sticky;
-            top: 0;
-            z-index: 2000;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
+        header { width: 100%; position: absolute; top: 0; left: 0; z-index: 2000; }
+        
+        .nav-wrapper { 
+            width: 100%; padding: 0 40px; 
+            display: flex; justify-content: space-between; align-items: center; 
+            height: 110px; transition: 0.3s;
         }
 
-        .nav-wrapper {
-            width: 100%;
-            padding: 0 40px; 
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            height: 110px; 
-        }
+        .logo { display: flex; align-items: center; }
+        .logo img { height: 90px; width: auto; object-fit: contain; transition: 0.3s; }
 
-        .logo img {
-            height: 100px; 
-            width: auto;
-            display: block;
-        }
+        nav ul { display: flex; list-style: none; gap: 40px; align-items: center; }
+        nav a { color: #fff; text-decoration: none; font-weight: 600; font-size: 16px; transition: 0.3s; }
+        nav a:hover { color: var(--accent-green); }
+        .btn-nav { background: var(--mix-gradient); padding: 10px 25px; border-radius: 8px; color: white !important; font-weight: 800; }
 
-        nav ul {
-            display: flex;
-            list-style: none;
-            gap: 45px;
-            align-items: center;
-        }
-
-        nav a {
-            color: #fff;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 16px;
+        /* 精致汉堡按钮设计 */
+        .hamburger { 
+            display: none; flex-direction: column; gap: 7px; cursor: pointer; z-index: 3000;
             transition: 0.3s;
         }
-        nav a:hover { color: var(--accent-green); }
-
-        .btn-mix {
-            background: var(--mix-gradient);
-            padding: 14px 35px;
-            border-radius: 8px;
-            color: #fff !important;
-            font-weight: 800;
-            text-decoration: none;
-            box-shadow: 0 10px 20px rgba(0, 118, 255, 0.3);
-            border: none;
-            cursor: pointer;
-        }
-
-        .hamburger {
-            display: none;
-            flex-direction: column;
-            gap: 7px;
-            cursor: pointer;
-            z-index: 3000;
-        }
-        .hamburger span { width: 32px; height: 3px; background: #fff; transition: 0.4s; }
+        .hamburger span { width: 32px; height: 2px; background: #fff; transition: 0.4s; border-radius: 2px; }
 
         /* ==========================================
-           3. Hero Section
+           3. Hero 区域 (按钮跑位修复核心)
            ========================================== */
         .hero {
-            padding: 100px 0;
-            background: radial-gradient(circle at 80% 20%, rgba(57, 211, 142, 0.12), transparent 50%);
+            position: relative; width: 100%; height: 100vh; min-height: 700px;
+            background: transparent; display: flex; align-items: center; justify-content: center;
+            text-align: center; color: #fff;
         }
-        .hero .container { display: flex; align-items: center; }
-        .hero-content { flex: 1.2; }
-        .hero-content h1 { font-size: 72px; font-weight: 900; line-height: 1.1; margin-bottom: 30px; }
-        .hero-btns { display: flex; gap: 20px; margin-top: 40px; }
-        .btn-outline {
-            padding: 14px 45px;
-            border-radius: 8px;
-            border: 2px solid rgba(255,255,255,0.2);
-            color: white;
-            text-decoration: none;
-            font-weight: 800;
+        .hero-content { width: 100%; max-width: 1000px; padding: 0 20px; }
+        .hero-content h1 { font-family: 'Montserrat', sans-serif; font-size: 72px; font-weight: 900; line-height: 1.1; margin-bottom: 25px; }
+        .hero-content p { font-size: 20px; color: #f0f0f0; margin-bottom: 45px; }
+
+        /* 修复按钮对齐 */
+        .hero-btns { 
+            display: flex; justify-content: center; align-items: center; 
+            gap: 20px; flex-wrap: wrap; 
         }
-
-        .hero-visual { flex: 0.8; display: flex; justify-content: flex-end; }
-        .visual-sphere {
-            width: 500px; height: 500px; border-radius: 50%;
-            background: radial-gradient(circle at 30% 30%, rgba(57, 211, 142, 0.3), rgba(0, 118, 255, 0.1));
-            backdrop-filter: blur(30px); border: 1px solid rgba(255,255,255,0.1);
+        .btn-mix { 
+            background: var(--mix-gradient); padding: 18px 50px; border-radius: 10px; 
+            color: #fff; text-decoration: none; font-weight: 800; font-size: 18px; 
+            display: inline-block; transition: 0.4s; box-shadow: 0 10px 30px rgba(0, 118, 255, 0.2);
         }
-
-        /* ==========================================
-           4. Services & About & Insights
-           ========================================== */
-        .services { padding: 100px 0; background: #ffffff; color: #111; text-align: center; }
-        .service-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; margin-top: 60px; }
-        .service-card { padding: 60px 40px; border-radius: 20px; background: #fff; border: 1px solid #eee; transition: 0.4s; }
-
-        .about { padding: 100px 0; background: #f8f9fa; color: #111; }
-        .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
-        .about-image img { border-radius: 20px; width: 100%; box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
-
-        .insights { padding: 100px 0; background: #020810; }
-        .insight-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; margin-top: 50px; }
-        .insight-card { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 15px; overflow: hidden; }
-        .insight-img { height: 250px; background-size: cover; background-position: center; }
+        .btn-outline { 
+            padding: 18px 45px; border-radius: 10px; border: 2px solid rgba(255,255,255,0.5); 
+            color: #fff; text-decoration: none; font-weight: 800; font-size: 18px; 
+            display: inline-block; transition: 0.4s;
+        }
 
         /* ==========================================
-           5. Footer (已去掉 Logo 图片)
+           4. 透明板块内容 (Services, About, etc.)
            ========================================== */
-        footer {
-            background: var(--mix-gradient); /* 品牌渐变 */
-            padding: 80px 0 40px 0;
-            color: #fff;
-        }
-        .footer-grid { 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: flex-start; 
-        }
+        section { background: transparent; padding: 100px 0; }
+        h2 { font-family: 'Montserrat', sans-serif; font-size: 48px; margin-bottom: 40px; color: #fff; }
+
+        .services-flex { display: flex; gap: 50px; align-items: center; }
+        .service-cards { flex: 1.2; display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; }
         
-        .footer-info { max-width: 500px; }
-        .footer-info h3 { font-size: 24px; font-weight: 900; margin-bottom: 15px; }
+        .card { 
+            background: rgba(255, 255, 255, 0.9); padding: 40px 25px; border-radius: 20px; 
+            text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.2); transition: 0.3s;
+        }
+        .card:hover { transform: translateY(-10px); background: #fff; }
 
-        .footer-contact { text-align: right; }
-        .footer-contact p { font-size: 18px; margin-bottom: 5px; font-weight: 600; }
-
-        .footer-bottom { 
-            border-top: 1px solid rgba(255,255,255,0.2); 
-            margin-top: 60px; 
-            padding-top: 30px; 
-            text-align: center; 
-            font-size: 15px;
-            opacity: 0.9;
+        .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+        .about-text h2, .about-text p { color: #fff; }
+        .feature-item { 
+            display: flex; gap: 20px; padding: 25px; background: rgba(255,255,255,0.9); 
+            border-radius: 15px; margin-bottom: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.2);
         }
 
+        .insight-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+        .insight-card { background: rgba(255,255,255,0.95); border-radius: 20px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
+        .insight-img { height: 240px; background: #eee center/cover no-repeat; }
+        .insight-body { padding: 30px; }
+
+        .contact-box { background: rgba(255,255,255,0.9); padding: 60px; border-radius: 25px; max-width: 800px; margin: 0 auto; text-align: center; }
+
+        footer { background: var(--mix-gradient); padding: 80px 0 40px 0; color: #fff; margin-top: 50px; }
+        .footer-grid { display: flex; justify-content: space-between; align-items: flex-start; }
+        .footer-contact { text-align: right; }
+        .footer-bottom { border-top: 1px solid rgba(255,255,255,0.2); margin-top: 60px; padding-top: 30px; text-align: center; opacity: 0.8; }
+
         /* ==========================================
-           6. 移动端 (Home 链接上移优化)
+           5. 移动端 (F12 768px) 最终修复区
            ========================================== */
         @media (max-width: 768px) {
-            .nav-wrapper { height: 90px; padding: 0 20px; }
-            .logo img { height: 65px; }
-            .hamburger { display: flex; }
+            /* 导航条与 Logo 稳定性修复 */
+            .nav-wrapper { height: 70px; padding: 0 20px; }
+            .logo img { height: 40px; } /* 缩小 Logo 至精致尺寸 */
+            
+            /* Hamburger 尺寸微调与手动对齐 */
+            .hamburger { 
+                display: flex; 
+                gap: 5px; 
+                margin-top: 5px; /* 手动向下微调 5px，实现与 Logo 视觉中轴对齐 */
+            }
+            .hamburger span { width: 24px; height: 2px; } /* 缩小汉堡图标 */
 
-            /* 移动菜单：调小 padding-top 让 Home 链接上移 */
-            nav ul {
-                position: fixed;
-                top: 0;
-                right: -100%;
-                width: 85%;
-                height: 100vh;
-                background: #000;
-                flex-direction: column;
-                justify-content: flex-start; 
-                padding-top: 60px; /* 改小了，Home 会更高 */
-                gap: 25px;
-                transition: 0.5s ease;
+            nav ul { 
+                position: fixed; top: 0; right: -100%; width: 80%; height: 100vh; 
+                background: rgba(0,0,0,0.98); backdrop-filter: blur(15px);
+                flex-direction: column; padding-top: 100px; gap: 30px; transition: 0.4s ease; 
             }
             nav ul.active { right: 0; }
 
-            .hero-content h1 { font-size: 44px; }
-            .hero, .about, .services { text-align: center; }
-            .hero-btns { flex-direction: column; }
-            .hero-visual { display: none; }
-            .service-grid, .insight-grid, .about-grid { grid-template-columns: 1fr; }
-            .footer-grid { flex-direction: column; text-align: center; gap: 40px; }
-            .footer-contact { text-align: center; }
+            /* 间距与文字适配 */
+            section { padding: 60px 0; }
+            h2 { font-size: 30px; margin-bottom: 30px; text-align: center; }
+
+            /* 彻底解决 Learn More 跑位：垂直并列居中 */
+            .hero { height: auto; padding: 140px 0 80px 0; }
+            .hero-content h1 { font-size: 36px; line-height: 1.2; }
+            .hero-btns { flex-direction: column; width: 100%; gap: 15px; }
+            .btn-mix, .btn-outline { width: 85%; max-width: 320px; text-align: center; padding: 15px 0; }
+
+            /* 结构降维 */
+            .services-flex, .about-grid, .insight-grid, .footer-grid { grid-template-columns: 1fr; display: block; }
+            .service-cards { grid-template-columns: 1fr; }
+            .service-image { display: none; }
+            .footer-contact { text-align: left; margin-top: 30px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- 导航栏 -->
     <header>
         <div class="nav-wrapper">
-            <a href="#" class="logo">
-                <img src="EA Logo.png" alt="Envean Logo">
-            </a>
-            
+            <a href="#" class="logo"><img src="EA Logo.png" alt="Envean Logo"></a>
             <nav id="nav-menu">
                 <ul>
                     <li><a href="#">Home</a></li>
                     <li><a href="#">Services</a></li>
                     <li><a href="#">About Us</a></li>
                     <li><a href="#">Insights</a></li>
-                    <li><a href="#" class="btn-mix">Get Started</a></li>
+                    <li><a href="#">Contact</a></li>
+                    <li><a href="#" class="btn-nav">Get Started</a></li>
                 </ul>
             </nav>
-
-            <div class="hamburger" id="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
+            <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
         </div>
     </header>
 
-    <!-- Hero Section -->
+    <!-- Hero -->
     <section class="hero">
-        <div class="container">
-            <div class="hero-content">
-                <h1>Smart Environmental <br>Solutions for Industries.</h1>
-                <p style="font-size: 20px; color: var(--text-gray); margin-top: 20px; max-width: 650px;">
-                    Helping businesses navigate and thrive in an ever-changing regulatory landscape with cutting-edge analytics.
-                </p>
-                <div class="hero-btns">
-                    <a href="#" class="btn-outline">LEARN MORE</a>
-                    <a href="#" class="btn-mix">GET STARTED</a>
-                </div>
-            </div>
-            <div class="hero-visual">
-                <div class="visual-sphere"></div>
+        <div class="hero-content">
+            <h1>Sustainable Solutions for <br>Industrial Waste & Emissions</h1>
+            <p>Heading the charge to better compliance and environmental sustainability with advanced analytics and innovative technologies.</p>
+            <div class="hero-btns">
+                <a href="#" class="btn-mix">Get Started</a>
+                <a href="#" class="btn-outline">Learn More</a>
             </div>
         </div>
     </section>
@@ -253,48 +194,55 @@
     <!-- Services -->
     <section class="services">
         <div class="container">
-            <h2 style="font-size: 42px; font-weight: 900; margin-bottom: 10px;">Our Services</h2>
-            <p style="color: #666;">Expert analytics and solutions to meet your specific needs.</p>
-            <div class="service-grid">
-                <div class="service-card">
-                    <div style="font-size: 50px; margin-bottom: 20px;">📊</div>
-                    <h3>Regulatory Compliance</h3>
-                    <p>Meeting the highest industry standards and legal requirements.</p>
+            <h2 style="text-align: center;">Our Expert Services</h2>
+            <div class="services-flex">
+                <div class="service-cards">
+                    <div class="card">
+                        <div style="font-size: 40px;">📊</div>
+                        <h3>Regulatory Compliance</h3>
+                        <p>Detailed compliance systems for your industry.</p>
+                    </div>
+                    <div class="card">
+                        <div style="font-size: 40px;">🌱</div>
+                        <h3>Emission Monitoring</h3>
+                        <p>Real-time tracking of carbon outputs.</p>
+                    </div>
+                    <div class="card">
+                        <div style="font-size: 40px;">⚡</div>
+                        <h3>Sustainable Energy</h3>
+                        <p>Clean power integration for big industries.</p>
+                    </div>
                 </div>
-                <div class="service-card">
-                    <div style="font-size: 50px; margin-bottom: 20px;">🌱</div>
-                    <h3>Data Analysis</h3>
-                    <p>In-depth analysis of environmental impact and sustainability metrics.</p>
-                </div>
-                <div class="service-card">
-                    <div style="font-size: 50px; margin-bottom: 20px;">🔍</div>
-                    <h3>Monitoring</h3>
-                    <p>Real-time tracking of industrial emissions and quality control.</p>
+                <!-- 仅在桌面端显示的辅助图 -->
+                <div class="service-image" style="flex:1;">
+                    <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=800" alt="Tech" style="width:100%; border-radius: 20px;">
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- About Section -->
+    <!-- About -->
     <section class="about">
         <div class="container about-grid">
-            <div class="about-image">
-                <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=800" alt="Engineer">
-            </div>
             <div class="about-text">
-                <h2 style="font-size: 38px; font-weight: 900; margin-bottom: 25px;">About Envean Analytics</h2>
+                <h2>About Envean Analytics</h2>
+                <h3 style="font-weight: 800; color: #39d38e; margin-bottom: 20px;">Empowering Industries Towards Sustainable</h3>
+                <p>We provide innovative data analytics that help industrial giants navigate the complex world of environmental waste.</p>
+                <a href="#" class="btn-mix" style="padding: 12px 30px; font-size: 16px; margin-top: 25px;">Read More</a>
+            </div>
+            <div>
                 <div class="feature-item">
-                    <div style="color: var(--accent-green); font-size: 24px; font-weight: bold;">✓</div>
+                    <span style="color:var(--accent-green); font-weight:900;">✓</span>
                     <div>
-                        <h4 style="font-weight: 700; font-size: 18px;">Expertise in Environmental Compliance</h4>
-                        <p style="font-size: 15px; color: #555;">Knowledge of global environmental regulations.</p>
+                        <h4 style="font-weight: 800;">Expertise in Environmental Compliance</h4>
+                        <p style="font-size: 14px; color: #666;">Global standards and legal expertise.</p>
                     </div>
                 </div>
                 <div class="feature-item">
-                    <div style="color: var(--accent-green); font-size: 24px; font-weight: bold;">✓</div>
+                    <span style="color:var(--accent-green); font-weight:900;">✓</span>
                     <div>
-                        <h4 style="font-weight: 700; font-size: 18px;">Advanced Data Analytics & Monitoring</h4>
-                        <p style="font-size: 15px; color: #555;">Precision tracking for industrial sustainability.</p>
+                        <h4 style="font-weight: 800;">Advanced Data Analytics & Monitoring</h4>
+                        <p style="font-size: 14px; color: #666;">High precision tracking tech.</p>
                     </div>
                 </div>
             </div>
@@ -302,33 +250,39 @@
     </section>
 
     <!-- Insights -->
-    <section class="insights">
-        <div class="container">
-            <h2 style="font-size: 42px; font-weight: 900; text-align: center; margin-bottom: 50px;">Insights & Case Studies</h2>
-            <div class="insight-grid">
-                <div class="insight-card">
-                    <div class="insight-img" style="background-image: url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=600');"></div>
-                    <div style="padding: 25px;">
-                        <h4 style="margin-bottom: 15px;">Emission Monitoring 2026</h4>
-                        <a href="#" style="color: var(--accent-green); font-weight: 700; text-decoration: none;">READ MORE →</a>
-                    </div>
+    <section class="insights container">
+        <h2 style="text-align: center;">Insights & Case Studies</h2>
+        <div class="insight-grid">
+            <div class="insight-card">
+                <div class="insight-img" style="background-image: url('https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=600');"></div>
+                <div class="insight-body">
+                    <h4>Clean Water Effluent Treatment</h4>
+                    <a href="#" style="color: var(--accent-blue); text-decoration: none; font-weight: 700;">READ MORE →</a>
                 </div>
-                <div class="insight-card">
-                    <div class="insight-img" style="background-image: url('https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=600');"></div>
-                    <div style="padding: 25px;">
-                        <h4 style="margin-bottom: 15px;">Industrial Sustainability</h4>
-                        <a href="#" style="color: var(--accent-green); font-weight: 700; text-decoration: none;">READ MORE →</a>
-                    </div>
+            </div>
+            <div class="insight-card">
+                <div class="insight-img" style="background-image: url('https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?q=80&w=600');"></div>
+                <div class="insight-body">
+                    <h4>Reducing Carbon Footprint</h4>
+                    <a href="#" style="color: var(--accent-blue); text-decoration: none; font-weight: 700;">READ MORE →</a>
                 </div>
-                <div class="insight-card">
-                <!-- 更换了下面这个 url 里的链接 -->
+            </div>
+            <div class="insight-card">
                 <div class="insight-img" style="background-image: url('https://images.unsplash.com/photo-1450101499163-c8848c66ca85?q=80&w=600');"></div>
-                <div style="padding: 25px;">
-                    <h4 style="margin-bottom: 15px;">Navigating Regulations</h4>
-                    <a href="#" style="color: var(--accent-green); font-weight: 700; text-decoration: none;">READ MORE →</a>
+                <div class="insight-body">
+                    <h4>Renewable Energy Integration</h4>
+                    <a href="#" style="color: var(--accent-blue); text-decoration: none; font-weight: 700;">READ MORE →</a>
                 </div>
             </div>
-            </div>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section class="container contact-section">
+        <div class="contact-box">
+            <h2 style="color:#333; font-size: 32px;">Contact Us</h2>
+            <p style="font-size: 18px; color: #555; margin-bottom: 30px;">Have questions about our sustainable solutions? Our experts are ready to help.</p>
+            <a href="mailto:info@enveananalytics.com" class="btn-mix">Send an Inquiry</a>
         </div>
     </section>
 
@@ -336,49 +290,37 @@
     <footer>
         <div class="container footer-grid">
             <div class="footer-info">
-                <!-- 已去掉 Logo 图片，保留品牌名称和描述 -->
-                <h3>ENVEAN ANALYTICS</h3>
-                <p style="margin-top: 10px; opacity: 0.9; font-size: 16px;">Ready to elevate your environmental compliance with advanced data-driven strategies for a sustainable industrial future.</p>
+                <h3 style="font-family: 'Montserrat'; font-size: 26px;">ENVEAN ANALYTICS</h3>
+                <p>Advanced data-driven strategies for 2026.</p>
             </div>
             <div class="footer-contact">
-                <p style="font-size: 26px; font-weight: 900; margin-bottom: 10px;">+123 456 7890</p>
+                <p style="font-size: 20px; font-weight: 900;">+123 456 7890</p>
                 <p>info@enveananalytics.com</p>
-                <p style="opacity: 0.8; font-size: 14px; margin-top: 10px;">Envean Innovation Way, Tech Park.</p>
             </div>
         </div>
-        <div class="footer-bottom">
-            &copy; 2026 ENVEAN ANALYTICS. All Rights Reserved.
-        </div>
+        <div class="footer-bottom">&copy; 2026 ENVEAN ANALYTICS. All Rights Reserved.</div>
     </footer>
 
-    <!-- 交互脚本 -->
     <script>
         const hamburger = document.getElementById('hamburger');
         const navMenu = document.querySelector('#nav-menu ul');
-
+        
         hamburger.addEventListener('click', () => {
             navMenu.classList.toggle('active');
-            
             const spans = hamburger.querySelectorAll('span');
+            
             if(navMenu.classList.contains('active')) {
-                spans[0].style.transform = 'rotate(45deg) translate(8px, 8px)';
+                // 展开状态下的交叉动画 (适配 5px 间距)
+                spans[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
                 spans[1].style.opacity = '0';
-                spans[2].style.transform = 'rotate(-45deg) translate(6px, -6px)';
+                spans[2].style.transform = 'rotate(-45deg) translate(5px, -5px)';
             } else {
+                // 恢复原状
                 spans[0].style.transform = 'none';
                 spans[1].style.opacity = '1';
                 spans[2].style.transform = 'none';
             }
         });
-
-        document.querySelectorAll('nav a').forEach(item => {
-            item.addEventListener('click', () => {
-                navMenu.classList.remove('active');
-                hamburger.querySelectorAll('span').forEach(s => s.style.transform = 'none');
-                hamburger.querySelectorAll('span')[1].style.opacity = '1';
-            });
-        });
     </script>
-
 </body>
 </html>
